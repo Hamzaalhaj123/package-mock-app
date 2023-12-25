@@ -7,7 +7,7 @@ import { degToRad } from "three/src/math/MathUtils.js";
 
 // Mugs by Poly by Google [CC-BY] (https://creativecommons.org/licenses/by/3.0/) via Poly Pizza (https://poly.pizza/m/8cBJ9XWbkiv)
 export function Mug(props) {
-  const texture = useTexture("/textures/wawa.png");
+  const texture = useTexture("/textures/sadasd.png");
   const { nodes, materials } = useGLTF("/models/mug.glb");
 
   useControls({

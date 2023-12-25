@@ -6,6 +6,8 @@ import * as THREE from "three";
 import React, { useRef, useState } from "react";
 import { Decal, useGLTF, useTexture } from "@react-three/drei";
 import { GLTF } from "three-stdlib";
+import { useControls } from "leva";
+import { degToRad } from "three/src/math/MathUtils.js";
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -20,8 +22,77 @@ type GLTFResult = GLTF & {
 };
 
 export function PizzaBox(props: JSX.IntrinsicElements["group"]) {
-  const texture = useTexture("/textures/wawa.png");
+  const texture = useTexture("/textures/sadasd.png");
 
+  useControls({
+    posX: {
+      min: -1,
+      max: 1,
+      value: 0,
+      step: 0.01,
+      onChange: (value) => {
+        setPos((pos) => [value, pos[1], pos[2]]);
+      },
+    },
+    posY: {
+      min: -1,
+      max: 1,
+      value: 0,
+      step: 0.01,
+      onChange: (value) => {
+        setPos((pos) => [pos[0], value, pos[2]]);
+      },
+    },
+    posZ: {
+      min: -1,
+      max: 1,
+      value: 0,
+      step: 0.01,
+      onChange: (value) => {
+        setPos((pos) => [pos[0], pos[1], value]);
+      },
+    },
+    rotateX: {
+      min: degToRad(60),
+      max: degToRad(300),
+      value: 0,
+      step: 0.01,
+      onChange: (value) => {
+        const rotX = value;
+        setRotation((prevRotation) => [rotX, prevRotation[1], prevRotation[2]]);
+      },
+    },
+    rotateY: {
+      min: degToRad(60),
+      max: degToRad(300),
+      value: Math.PI / 4,
+      step: 0.01,
+      onChange: (value) => {
+        const rot = value; // Assuming the angle is directly provided in radians
+        setRotation(() => [0, rot, 0]);
+      },
+    },
+    // For Z-axis rotation
+    rotateZ: {
+      min: degToRad(60),
+      max: degToRad(300),
+      value: 0,
+      step: 0.01,
+      onChange: (value) => {
+        const rotZ = value;
+        setRotation((prevRotation) => [prevRotation[0], prevRotation[1], rotZ]);
+      },
+    },
+    scaleTheImage: {
+      min: 0.5,
+      max: 3,
+      value: 1.5,
+      step: 0.01,
+      onChange: (value) => {
+        setScale(() => [value, value, value]);
+      },
+    },
+  });
   const { nodes, materials } = useGLTF("/models/pizzaBox.glb") as GLTFResult;
   const [pos, setPos] = useState([-0.3, 0.5, 0]);
   const [rotation, setRotation] = useState([1, 1, 5.2]);
@@ -59,7 +130,7 @@ export function PizzaBox(props: JSX.IntrinsicElements["group"]) {
             toneMapped={false}
             transparent
             polygonOffset
-            polygonOffsetFactor={-1} // The mesh should take precedence over the original
+            polygonOffsetFactor={-1}
           />
         </Decal>
       </mesh>
