@@ -10,7 +10,7 @@ import Link from "next/link";
 import React, { Dispatch, SetStateAction, useState } from "react";
 
 function MugScene() {
-  const [src1, setSrc1] = useState("");
+  const [src1, setSrc1] = useState("/textures/sadasd.png");
   const contextValue: ImageSrcContextType = {
     src1,
     setSrc1,

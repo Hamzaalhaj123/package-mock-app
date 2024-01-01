@@ -30,19 +30,16 @@ export function PizzaBox(props: JSX.IntrinsicElements["group"]) {
 
   const context = useContext(ImageSrcContext);
 
-  if (!context) {
-    return null;
-  }
-
   const { src1 } = context;
 
   const texture = useTexture(src1 || "/textures/sadasd.png");
 
-  useControls({
+  const { inDebugMode } = useControls({
+    inDebugMode: false,
     posX: {
       min: -1,
       max: 1,
-      value: 0,
+      value: -0.14,
       step: 0.01,
       onChange: (value) => {
         setPos((pos) => new Vector3(value, pos.y, pos.z));
@@ -51,7 +48,7 @@ export function PizzaBox(props: JSX.IntrinsicElements["group"]) {
     posY: {
       min: -1,
       max: 1,
-      value: 0,
+      value: 0.45,
       step: 0.01,
       onChange: (value) => {
         setPos((pos) => new Vector3(pos.x, value, pos.z));
@@ -78,9 +75,9 @@ export function PizzaBox(props: JSX.IntrinsicElements["group"]) {
       },
     },
     rotateY: {
-      min: degToRad(0),
+      min: degToRad(-360),
       max: degToRad(360),
-      value: Math.PI / 4,
+      value: degToRad(-90),
       step: 0.01,
       onChange: (value) => {
         setRotation(
@@ -102,9 +99,9 @@ export function PizzaBox(props: JSX.IntrinsicElements["group"]) {
       },
     },
     scaleTheImage: {
-      min: 0.5,
+      min: 0.1,
       max: 3,
-      value: 1.5,
+      value: 0.84,
       step: 0.01,
       onChange: (value) => {
         setScale(() => new Vector3(value, value, value));

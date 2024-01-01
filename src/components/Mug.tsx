@@ -34,10 +34,6 @@ export function Mug(props: JSX.IntrinsicElements["group"]) {
 
   const context = useContext(ImageSrcContext);
 
-  if (!context) {
-    return null;
-  }
-
   const { src1, setSrc1 } = context;
 
   const texture = useTexture(src1 || "/textures/sadasd.png");
