@@ -1,5 +1,6 @@
 "use client";
 import ImageSrcContext from "@/context/imageSrcContext";
+import Image from "next/image";
 import React, { useState, ChangeEvent, useContext } from "react";
 
 const ImageUploader: React.FC = () => {
@@ -30,7 +31,7 @@ const ImageUploader: React.FC = () => {
       {imageSrc && (
         <div>
           <h2>Preview:</h2>
-          <img
+          <Image
             src={imageSrc}
             alt="Uploaded"
             style={{ maxWidth: "100%", maxHeight: "300px" }}
