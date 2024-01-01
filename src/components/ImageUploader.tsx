@@ -4,7 +4,13 @@ import React, { useState, ChangeEvent, useContext } from "react";
 
 const ImageUploader: React.FC = () => {
   const [imageSrc, setImageSrc] = useState<string>("");
-  const { src1, setSrc1 } = useContext(ImageSrcContext);
+  const context = useContext(ImageSrcContext);
+
+  if (!context) {
+    return null;
+  }
+
+  const { setSrc1 } = context;
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -12,7 +18,7 @@ const ImageUploader: React.FC = () => {
       const reader = new FileReader();
       reader.onloadend = () => {
         setImageSrc(reader.result as string);
-        setSrc1(reader.result);
+        setSrc1(reader.result as string);
       };
       reader.readAsDataURL(file);
     }

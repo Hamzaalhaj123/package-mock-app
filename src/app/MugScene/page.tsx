@@ -1,17 +1,23 @@
 "use client";
 import ImageUploader from "@/components/ImageUploader";
 import { Mug } from "@/components/Mug";
-import ImageSrcContext from "@/context/imageSrcContext";
+import ImageSrcContext, {
+  ImageSrcContextType,
+} from "@/context/imageSrcContext";
 import { OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 
 function MugScene() {
-  const [src1, setSrc1] = useState(null);
+  const [src1, setSrc1] = useState("");
+  const contextValue: ImageSrcContextType = {
+    src1,
+    setSrc1,
+  };
   return (
     <>
-      <ImageSrcContext.Provider value={{ src1, setSrc1 }}>
+      <ImageSrcContext.Provider value={contextValue}>
         <ImageUploader />
         <Link href="/">backkkkkkkkkk</Link>
         <Canvas
