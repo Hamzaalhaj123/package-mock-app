@@ -107,7 +107,7 @@ export function PizzaBox(props: JSX.IntrinsicElements["group"]) {
       },
     },
   });
-  const { nodes, materials } = useGLTF("/models/pizzaBox.glb") as GLTFResult;
+  const { nodes, materials } = useGLTF("/models/PizzaBox.glb") as GLTFResult;
 
   return (
     <group {...props} dispose={null} scale={4}>
