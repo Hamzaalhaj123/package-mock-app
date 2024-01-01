@@ -7,15 +7,13 @@ import { Canvas } from "@react-three/fiber";
 import Link from "next/link";
 import React, { useState } from "react";
 import ImageSrcContext, {
+  DEFAULT_TEXTURE_SRC,
   ImageSrcContextType,
 } from "@/context/imageSrcContext";
 
 function PizzaBoxScene() {
-  const [src1, setSrc1] = useState("/textures/sadasd.png");
-  const contextValue: ImageSrcContextType = {
-    src1,
-    setSrc1,
-  };
+  const [src1, setSrc1] = useState<string>(DEFAULT_TEXTURE_SRC);
+
   return (
     <>
       <Link href="/">backkkkkkkkkk</Link>

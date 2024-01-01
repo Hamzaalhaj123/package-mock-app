@@ -36,7 +36,7 @@ export function Mug(props: JSX.IntrinsicElements["group"]) {
 
   const { src1, setSrc1 } = context;
 
-  const texture = useTexture(src1 || "/textures/sadasd.png");
+  const texture = useTexture(src1);
   const { nodes, materials } = useGLTF("/models/mug.glb") as GLTFResult;
 
   useControls({

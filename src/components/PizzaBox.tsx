@@ -32,8 +32,7 @@ export function PizzaBox(props: JSX.IntrinsicElements["group"]) {
 
   const { src1 } = context;
 
-  const texture = useTexture(src1 || "/textures/sadasd.png");
-
+  const texture = useTexture(src1);
   const { inDebugMode } = useControls({
     inDebugMode: false,
     posX: {

@@ -2,6 +2,7 @@
 import ImageUploader from "@/components/ImageUploader";
 import { Mug } from "@/components/Mug";
 import ImageSrcContext, {
+  DEFAULT_TEXTURE_SRC,
   ImageSrcContextType,
 } from "@/context/imageSrcContext";
 import { OrbitControls } from "@react-three/drei";
@@ -10,14 +11,11 @@ import Link from "next/link";
 import React, { Dispatch, SetStateAction, useState } from "react";
 
 function MugScene() {
-  const [src1, setSrc1] = useState("/textures/sadasd.png");
-  const contextValue: ImageSrcContextType = {
-    src1,
-    setSrc1,
-  };
+  const [src1, setSrc1] = useState<string>(DEFAULT_TEXTURE_SRC);
+
   return (
     <>
-      <ImageSrcContext.Provider value={contextValue}>
+      <ImageSrcContext.Provider value={{ src1, setSrc1 }}>
         <ImageUploader />
         <Link href="/">backkkkkkkkkk</Link>
         <Canvas
