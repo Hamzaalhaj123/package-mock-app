@@ -149,4 +149,4 @@ export function PizzaBox(props: JSX.IntrinsicElements["group"]) {
   );
 }
 
-useGLTF.preload("/models/pizzaBox.glb");
+useGLTF.preload("/models/PizzaBox.glb");
