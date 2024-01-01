@@ -32,6 +32,8 @@ const ImageUploader: React.FC = () => {
         <div>
           <h2>Preview:</h2>
           <Image
+            width={400}
+            height={300}
             src={imageSrc}
             alt="Uploaded"
             style={{ maxWidth: "100%", maxHeight: "300px" }}
