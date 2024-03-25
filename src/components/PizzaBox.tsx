@@ -23,10 +23,17 @@ type GLTFResult = GLTF & {
 };
 
 export function PizzaBox(props: JSX.IntrinsicElements["group"]) {
-  const [pos, setPos] = useState<Vector3>(new Vector3(...[-0.3, 0.5, 0]));
+  const DEFAULTS = {
+    pos: [-0.3, 0.45, 0],
+    rotation: [degToRad(0), degToRad(-90), degToRad(0)],
+    scale: [0.84, 0.84, 0.84],
+  };
+  const [pos, setPos] = useState<Vector3>(new Vector3(...DEFAULTS.pos));
 
-  const [rotation, setRotation] = useState<Euler>(new Euler(...[1, 1, 5.2]));
-  const [scale, setScale] = useState<Vector3>(new Vector3(...[0.6, 0.6, 0.6]));
+  const [rotation, setRotation] = useState<Euler>(
+    new Euler(...DEFAULTS.rotation)
+  );
+  const [scale, setScale] = useState<Vector3>(new Vector3(...DEFAULTS.scale));
 
   const context = useContext(ImageSrcContext);
 
@@ -38,7 +45,7 @@ export function PizzaBox(props: JSX.IntrinsicElements["group"]) {
     posX: {
       min: -1,
       max: 1,
-      value: -0.14,
+      value: DEFAULTS.pos[0],
       step: 0.01,
       onChange: (value) => {
         setPos((pos) => new Vector3(value, pos.y, pos.z));
@@ -47,7 +54,7 @@ export function PizzaBox(props: JSX.IntrinsicElements["group"]) {
     posY: {
       min: -1,
       max: 1,
-      value: 0.45,
+      value: DEFAULTS.pos[1],
       step: 0.01,
       onChange: (value) => {
         setPos((pos) => new Vector3(pos.x, value, pos.z));
@@ -56,7 +63,7 @@ export function PizzaBox(props: JSX.IntrinsicElements["group"]) {
     posZ: {
       min: -1,
       max: 1,
-      value: 0,
+      value: DEFAULTS.pos[2],
       step: 0.01,
       onChange: (value) => {
         setPos((pos) => new Vector3(pos.x, pos.y, value));
@@ -65,7 +72,7 @@ export function PizzaBox(props: JSX.IntrinsicElements["group"]) {
     rotateX: {
       min: degToRad(0),
       max: degToRad(360),
-      value: 0,
+      value: DEFAULTS.rotation[0],
       step: 0.01,
       onChange: (value) => {
         setRotation(
@@ -76,7 +83,7 @@ export function PizzaBox(props: JSX.IntrinsicElements["group"]) {
     rotateY: {
       min: degToRad(-360),
       max: degToRad(360),
-      value: degToRad(-90),
+      value: DEFAULTS.rotation[1],
       step: 0.01,
       onChange: (value) => {
         setRotation(
@@ -88,7 +95,7 @@ export function PizzaBox(props: JSX.IntrinsicElements["group"]) {
     rotateZ: {
       min: degToRad(0),
       max: degToRad(360),
-      value: 0,
+      value: DEFAULTS.rotation[2],
       step: 0.01,
       onChange: (value) => {
         const rotZ = value;
@@ -104,6 +111,17 @@ export function PizzaBox(props: JSX.IntrinsicElements["group"]) {
       step: 0.01,
       onChange: (value) => {
         setScale(() => new Vector3(value, value, value));
+      },
+    },
+
+    resetTheImage: {
+      value: false,
+      onChange: (value) => {
+        if (value) {
+          setScale(() => new Vector3(...DEFAULTS.scale));
+          setPos(() => new Vector3(...DEFAULTS.pos));
+          setRotation(() => new Euler(...DEFAULTS.rotation));
+        }
       },
     },
   });
