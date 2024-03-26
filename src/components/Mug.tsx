@@ -8,6 +8,7 @@ import React, { useContext, useState } from "react";
 import { degToRad } from "three/src/math/MathUtils.js";
 import { Euler, Vector3 } from "three";
 import { GLTF } from "three-stdlib";
+import { DEFAULT } from "@react-three/fiber/dist/declarations/src/core/utils";
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -27,10 +28,18 @@ type GLTFResult = GLTF & {
 };
 // Mugs by Poly by Google [CC-BY] (https://creativecommons.org/licenses/by/3.0/) via Poly Pizza (https://poly.pizza/m/8cBJ9XWbkiv)
 export function Mug(props: JSX.IntrinsicElements["group"]) {
-  const [pos, setPos] = useState<Vector3>(new Vector3(...[0, 1.8, 1]));
+  const DEFAULTS = {
+    pos: [0, 1.88, 1],
+    rotation: [degToRad(0), degToRad(125), degToRad(0)],
+    scale: [1.5, 1.5, 1.5],
+  };
 
-  const [rotation, setRotation] = useState<Euler>(new Euler(...[0, 0, 0]));
-  const [scale, setScale] = useState<Vector3>(new Vector3(...[1.5, 1.5, 1.5]));
+  const [pos, setPos] = useState<Vector3>(new Vector3(...DEFAULTS.pos));
+
+  const [rotation, setRotation] = useState<Euler>(
+    new Euler(...DEFAULTS.rotation)
+  );
+  const [scale, setScale] = useState<Vector3>(new Vector3(...DEFAULTS.scale));
 
   const context = useContext(ImageSrcContext);
 
@@ -43,12 +52,13 @@ export function Mug(props: JSX.IntrinsicElements["group"]) {
     angle: {
       min: degToRad(60),
       max: degToRad(300),
-      value: Math.PI / 4,
+      value: DEFAULTS.rotation[1],
       step: 0.01,
       onChange: (value) => {
         const x = Math.cos(value);
         const z = Math.sin(value);
         const rot = Math.atan2(x, z);
+
         setRotation(() => new Euler(0, rot, 0));
         setPos((pos) => new Vector3(x, pos.y, z));
       },
@@ -56,7 +66,7 @@ export function Mug(props: JSX.IntrinsicElements["group"]) {
     posY: {
       min: 0,
       max: 3,
-      value: 1.8,
+      value: DEFAULTS.pos[1],
       step: 0.01,
       onChange: (value) => {
         setPos((pos) => new Vector3(pos.x, value, pos.z));
@@ -65,10 +75,29 @@ export function Mug(props: JSX.IntrinsicElements["group"]) {
     scale: {
       min: 0.5,
       max: 3,
-      value: 1.5,
+      value: DEFAULTS.scale[0],
       step: 0.01,
       onChange: (value) => {
         setScale(() => new Vector3(value, value, 1.5));
+      },
+    },
+
+    resetTheImage: {
+      value: false,
+      onChange: (value) => {
+        if (value) {
+          setScale(() => new Vector3(...DEFAULTS.scale));
+
+          setRotation((prevRotation) => new Euler(0, -0.6108652381980155, 0));
+          setPos(
+            (pos) =>
+              new Vector3(
+                -0.5735764363510462,
+                DEFAULTS.pos[1],
+                0.8191520442889917
+              )
+          );
+        }
       },
     },
   });

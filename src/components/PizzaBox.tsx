@@ -107,7 +107,7 @@ export function PizzaBox(props: JSX.IntrinsicElements["group"]) {
     scaleTheImage: {
       min: 0.1,
       max: 3,
-      value: 0.84,
+      value: DEFAULTS.scale[0],
       step: 0.01,
       onChange: (value) => {
         setScale(() => new Vector3(value, value, value));
